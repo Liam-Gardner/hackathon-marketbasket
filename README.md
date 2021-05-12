@@ -1,4 +1,3 @@
-# todo_api
 ## Running the server
 ```sh
 // install packages

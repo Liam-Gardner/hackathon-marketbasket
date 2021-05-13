@@ -14,7 +14,16 @@ export const getRuleSet = ({
   whiteLabel: string;
 }): string[] => {
   const rules = convertRulesToJson(ruleSetNumber, whiteLabel);
-  const recommendedItems = getRecommendedItems(menuItemIds, rules);
+  let recommendedItems = getRecommendedItems(menuItemIds, rules);
+  const baseRecommendedItems = recommendedItems;
+  var inputItemIds = menuItemIds.split(",");
+  let subRecItemsTrace : string[] = [];
+  inputItemIds.forEach(mid => {
+    const subRecommendedItems = getRecommendedItems(mid, rules);
+    subRecommendedItems.forEach( rid => recommendedItems.push(rid));
+    subRecItemsTrace.push(mid + "=>" + subRecommendedItems.join(","));
+  });
+  console.log("Recommended items: " + baseRecommendedItems.join(", ") + " + foreach: " + subRecItemsTrace.join(", "));
   return recommendedItems;
 };
 

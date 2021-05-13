@@ -10,7 +10,7 @@ export const getRuleSet = ({
   whiteLabel,
 }: {
   menuItemIds: WebOrderPayload["MenuItemIdsInBasket"];
-  ruleSetNumber: number;
+  ruleSetNumber: string;
   whiteLabel: string;
 }): string[] => {
   const rules = convertRulesToJson(ruleSetNumber, whiteLabel);
@@ -32,7 +32,7 @@ const getRecommendedItems = (menuItemIds: string, rules: Rule[]): string[] => {
 };
 
 export const convertRulesToJson = (
-  ruleSetNumber: number = 1,
+  ruleSetNumber: string,
   whitelabel: string
 ): Rule[] => {
   const jsonRules = fs.readFileSync(
@@ -68,3 +68,28 @@ export const convertRulesToJson = (
 
   return rules;
 };
+
+export const serializeRequest = (req: WebOrderPayload): string => {
+  const deliveryType = req.DeliveryType === "Delivery" ? "1,0" : "0,1";
+  console.log("request from weborder", req);
+  const data = `${req.ItemCount},${req.TotalAmountNormalized},${req.DayOfWeek},${req.TimeOfDayNormalized},${req.MainItemCount},${req.MediumItemCount},${req.SmallItemCount},${deliveryType}`;
+
+  return data;
+};
+
+/* const data = "
+ItemCount: 1,
+TotalAmountNormalized: 0.0481,
+DayOfWeek: 0,
+TimeOfDayNormalized: 0,
+MainItemCount: 0,
+MediumItemCount: 1,
+SmallItemCount: 0,
+Delivery: 0,
+Collection: 0
+0.20
+0
+1
+0
+0
+1" */

@@ -1,13 +1,13 @@
 export type WebOrderPayload = {
-  DayOfWeek: string;
-  DeliveryType: number;
   ItemCount: number;
+  TotalAmountNormalized: number;
+  DayOfWeek: string;
+  TimeOfDayNormalized: number;
   MainItemCount: number;
   MediumItemCount: number;
-  MenuItemIdsInBasket: string;
   SmallItemCount: number;
-  TimeOfDayNormalized: number;
-  TotalAmountNormalized: number;
+  DeliveryType: "Collection" | "Delivery";
+  MenuItemIdsInBasket: string; 
 };
 
 export type Data = {
@@ -26,3 +26,10 @@ type Rule = {
   support: number;
   count: number;
 };
+
+export type SageResponse = [
+  {
+    closest_cluster: number;
+    distance_to_cluster: number;
+  }
+];

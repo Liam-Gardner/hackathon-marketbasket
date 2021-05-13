@@ -1,20 +1,23 @@
 import { Request, Router } from "express";
 import { callSageMaker } from "../services/main";
 import { WebOrderPayload } from "../types";
-import { getRuleSet } from "../utils/helpers";
+import { getRuleSet, serializeRequest } from "../utils/helpers";
 const router = Router();
 
 router.post("/getRules", async (req: Request<{}, {}, WebOrderPayload>, res) => {
   try {
-    const ruleSetNumber = await callSageMaker(req.body);
+    const sageData = serializeRequest(req.body);
+    const ruleSetNumber = await callSageMaker({ data: sageData });
 
-    const recommendedItems = getRuleSet({
-      ruleSetNumber,
-      whiteLabel: "BombayPantry",
-      menuItemIds: req.body.MenuItemIdsInBasket,
-    });
+    if (ruleSetNumber) {
+      const recommendedItems = getRuleSet({
+        ruleSetNumber,
+        whiteLabel: "romayos",
+        menuItemIds: req.body.MenuItemIdsInBasket,
+      });
 
-    res.status(200).send(recommendedItems);
+      res.status(200).send(recommendedItems);
+    }
   } catch (error) {
     res.sendStatus(500);
     console.log(error);

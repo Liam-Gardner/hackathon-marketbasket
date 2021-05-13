@@ -5,10 +5,11 @@ import { getRuleSet, serializeRequest } from "../utils/helpers";
 const router = Router();
 
 router.post("/getRules", async (req: Request<{}, {}, WebOrderPayload>, res) => {
-  console.log("getRules body", req.body)
+  console.log("getRules body", req.body);
   try {
     const sageData = serializeRequest(req.body);
     const ruleSetNumber = await callSageMaker({ data: sageData });
+    console.log("using cluster no:", ruleSetNumber);
 
     if (ruleSetNumber) {
       const recommendedItems = getRuleSet({

@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 const bodyParser = require("body-parser");
+const cors = require("cors")
 const app = express();
 const morgan = require("morgan");
 const main = require("./routes/main");
@@ -11,20 +12,21 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(cors())
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-  );
-  res.header("Access-Control-Allow-Headers", "flipdish-app-type,flipdish-white-label-id,x-coordinates")
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "POST, GET");
-    return res.status(200).json({});
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+//   );
+//   res.header("Access-Control-Allow-Headers", "flipdish-app-type,flipdish-white-label-id,x-coordinates")
+//   if (req.method === "OPTIONS") {
+//     res.header("Access-Control-Allow-Methods", "POST, GET");
+//     return res.status(200).json({});
+//   }
+//   next();
+// });
 
 app.use("/main", main);
 

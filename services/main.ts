@@ -9,7 +9,7 @@ export const callSageMaker = async (data: {
       "https://4dzakqq057.execute-api.eu-west-1.amazonaws.com/dev/predictprofile",
       { data: data.data }
     );
-    return "1"
+    return "6"
     // if (response.data.length) {
     //   const num = response.data[0].closest_cluster.toString().split(".")[0];
     //   return num;

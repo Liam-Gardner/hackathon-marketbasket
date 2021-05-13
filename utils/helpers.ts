@@ -76,20 +76,3 @@ export const serializeRequest = (req: WebOrderPayload): string => {
 
   return data;
 };
-
-/* const data = "
-ItemCount: 1,
-TotalAmountNormalized: 0.0481,
-DayOfWeek: 0,
-TimeOfDayNormalized: 0,
-MainItemCount: 0,
-MediumItemCount: 1,
-SmallItemCount: 0,
-Delivery: 0,
-Collection: 0
-0.20
-0
-1
-0
-0
-1" */

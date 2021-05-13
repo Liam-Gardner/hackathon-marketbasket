@@ -19,13 +19,13 @@ export const getRuleSet = ({
 };
 
 const getRecommendedItems = (menuItemIds: string, rules: Rule[]): string[] => {
-  const ids = Array.of(menuItemIds);
+  const itemIds = Array.isArray(menuItemIds)
+    ? menuItemIds.join(", ")
+    : menuItemIds;
   const recommendedItems: string[] = [];
-  for (let i = 0; i <rules.length; i++) {
-    for (let j = 0; j < ids.length; j++) {
-      if (rules[i].lhs == ids[j]) {
-        recommendedItems.push(rules[i].lhs);
-      }
+  for (let i = 0; i < rules.length; i++) {
+    if (rules[i].lhs === itemIds) {
+      recommendedItems.push(rules[i].rhs);
     }
   }
   return recommendedItems;

@@ -2,7 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { Data, Rule, WebOrderPayload } from "../types";
 
-const dataPath = path.resolve("./", "data");
+const dataPath = path.resolve(__dirname, "./", "data");
 
 export const getRuleSet = ({
   menuItemIds,
